@@ -457,7 +457,7 @@ $(document).ready(function(){
 
         $.cookie("colour-scheme",id);
 
-        $(style).attr('href', 'assets/css/colour-scheme/' + id + '.css');
+        $(style).attr('href', 'assets/' + id + '.css');
         $(style).attr('data-color', colour_scheme);
         $.cookie("colour-skills",$(this).attr('data-color'));
     });
@@ -495,7 +495,7 @@ $(document).ready(function(){
     var colour_bg = $.cookie("colour-bg");
     var box_shadow = $.cookie("box-shadow");
     if( colour_scheme != "" && colour_scheme != undefined ){
-        $(style).attr('href', 'assets/css/colour-scheme/' + colour_scheme + '.css');
+        $(style).attr('href', 'assets/' + colour_scheme + '.css');
         $(style).attr('data-color', colour_scheme);
     } else{
         $.cookie("colour-scheme","color-blue");
