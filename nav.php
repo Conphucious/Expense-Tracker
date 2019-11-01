@@ -16,7 +16,7 @@ if (isset($_SESSION['loginUserId'])) {
                         </a>
                     </li><hr>
                     <li>
-                        <a href="./profile.htm" class="menu-li hover-animate">
+                        <a href="remove_data.php" class="menu-li hover-animate">
                             <span class="ukie-icons hover-animate"></span>
                             <h2 class="title-header">Remove Data</h2>
                         </a>

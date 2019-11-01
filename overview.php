@@ -4,26 +4,39 @@ include('session.php');
 
 $id = $_SESSION['loginUserId'];
 
-$incomeC = ($db -> query("SELECT COUNT(*) AS total FROM user_data WHERE user_id = " . $id . " AND is_income = 1;")) -> fetch_array();
-$expenseC = ($db -> query("SELECT COUNT(*) AS total FROM user_data WHERE user_id = " . $id . " AND is_income = 0;")) -> fetch_array();
+
+$incomeC = ($db -> query("
+SELECT COUNT(*) AS total FROM user_data
+JOIN data ON data.id = user_data.data_id
+JOIN data_type ON data_type.name = data.data_type_name
+WHERE user_data.user_id = " . $id . " AND data_type.is_expense = 0;")) -> fetch_array();
+
+$expenseC = ($db -> query("
+SELECT COUNT(*) AS total FROM user_data
+JOIN data ON data.id = user_data.data_id
+JOIN data_type ON data_type.name = data.data_type_name
+WHERE user_data.user_id = " . $id . " AND data_type.is_expense = 1;")) -> fetch_array();
+
 $budgetC = ($db -> query("SELECT COUNT(*) AS total FROM user_budget WHERE user_id = " . $id . ";")) -> fetch_array();
 
 $expenseS = ($db -> query("
- SELECT SUM(amount) AS total FROM user_data
- JOIN data ON data.id = user_data.data_id
- WHERE user_data.is_income = 0 AND user_data.user_id = " . $id . ";")) -> fetch_array();
+SELECT SUM(data.amount) AS total FROM user_data
+JOIN data ON data.id = user_data.data_id
+JOIN data_type ON data_type.name = data.data_type_name
+WHERE data_type.is_expense = 1 AND user_data.user_id = " . $id . ";")) -> fetch_array();
 
 $incomeS = ($db -> query("
- SELECT SUM(amount) AS total FROM user_data
- JOIN data ON data.id = user_data.data_id
- WHERE user_data.is_income = 1 AND user_data.user_id = " . $id . ";")) -> fetch_array();
+SELECT SUM(data.amount) AS total FROM user_data
+JOIN data ON data.id = user_data.data_id
+JOIN data_type ON data_type.name = data.data_type_name
+WHERE data_type.is_expense = 0 AND user_data.user_id = " . $id . ";")) -> fetch_array();
 
 if ($expenseS['total'] == null)
     $expenseS['total'] = 0;
 if ($incomeS['total'] == null)
     $incomeS['total'] = 0;
 
-// total per this data type: need for loop
+// // total per this data type: need for loop
 
 ?>
 
@@ -51,9 +64,9 @@ if ($incomeS['total'] == null)
 
                         <div class="col-xs-12 col-sm-7 col-lg-7 text-left">
                             <ul>
-                                <li>Expenses submitted: <?php echo "$" . $expenseC['total']; ?> </li>
+                                <li>Expenses submitted: <?php echo $expenseC['total']; ?> </li>
                                 <li>Total expenses:  <?php echo "$" . $expenseS['total']; ?> </li>
-                                <li>Income submitted: <?php echo "$" . $incomeC['total']; ?> </li>
+                                <li>Income submitted: <?php echo $incomeC['total']; ?> </li>
                                 <li>Total income: <?php echo "$" . $incomeS['total']; ?> </li>
                                 <li>Goal Budgets submitted: <?php echo "$" . $budgetC['total']; ?></li>
                             </ul>
