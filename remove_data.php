@@ -25,8 +25,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-echo $id . "__";
-
 $data = $db -> query("SELECT data.name, user_data.id, user_data.date FROM data
 JOIN user_data ON user_data.data_id = data.id
 WHERE user_data.user_id = " . $_SESSION['loginUserId'] . ";");
@@ -73,7 +71,7 @@ $db -> close();
                             <form method="post">
                                 <table width="80%" cellpadding="4" cellspacing="4" border="0" align="center">
                                     <tr>
-                                        <td width="60%">Data Type:&nbsp;&nbsp;&nbsp;</td>
+                                        <td width="60%">Data:&nbsp;&nbsp;&nbsp;</td>
                                         <td width="40%">
                                             <select name="dataType" onchange="document.getElementById('selected_text').value=this.options[this.selectedIndex].text">
                                                 <?php echo $data_type_box ?>

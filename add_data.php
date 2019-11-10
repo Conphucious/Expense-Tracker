@@ -11,8 +11,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $amt = $_POST['amt'];
     $date = $_POST['date'];
 
-    echo $dataType;
-
     if ($dataType == '')
         $error = 'Please re-select your data type';
     else if ($name == '')
@@ -30,7 +28,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $id = mysqli_insert_id($db);
         $date = date("Y-m-d", strtotime($date));
-        echo $name . "_" . $desc . "_" . $amt . "_" . $dataType . "_" . $id . "::" . $_SESSION['loginUserId'] . "_" . $isIncome . "_" . $date;
         $userDataInsert = $db -> query("INSERT INTO user_data (user_id, data_id, date) VALUE (" . $_SESSION['loginUserId'] . ", " . $id . ", '" . $date . "');");
 
         $error = 'Data successfully submitted!';
@@ -38,12 +35,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-$data_types = $db -> query("SELECT * FROM data_type");
-$count = 0;
+$data_types = $db -> query("SELECT * FROM data_type JOIN user_type ON user_type.type_name = data_type.name WHERE user_id = " . $_SESSION['loginUserId'] . ";");
 if ($data_types) {
-
     $data_type_box .= '<option selected></option>';
-
     while ($row = mysqli_fetch_array($data_types)) {
         $format = $row['name'];
         $data_type_box .= '<option value="' . $format . '"';

@@ -17,7 +17,7 @@ JOIN data ON data.id = user_data.data_id
 JOIN data_type ON data_type.name = data.data_type_name
 WHERE user_data.user_id = " . $id . " AND data_type.is_expense = 1;")) -> fetch_array();
 
-$budgetC = ($db -> query("SELECT COUNT(*) AS total FROM user_budget WHERE user_id = " . $id . ";")) -> fetch_array();
+//$budgetC = ($db -> query("SELECT COUNT(*) AS total FROM user_budget WHERE user_id = " . $id . ";")) -> fetch_array();
 
 $expenseS = ($db -> query("
 SELECT SUM(data.amount) AS total FROM user_data
@@ -68,7 +68,7 @@ if ($incomeS['total'] == null)
                                 <li>Total expenses:  <?php echo "$" . $expenseS['total']; ?> </li>
                                 <li>Income submitted: <?php echo $incomeC['total']; ?> </li>
                                 <li>Total income: <?php echo "$" . $incomeS['total']; ?> </li>
-                                <li>Goal Budgets submitted: <?php echo "$" . $budgetC['total']; ?></li>
+                                <!-- <li>Goal Budgets submitted: <?php echo "$" . $budgetC['total']; ?></li> -->
                             </ul>
                         </div>
 

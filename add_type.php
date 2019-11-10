@@ -19,8 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = 'Description is empty';
     else {
         // CHECK IF NAME EXISTS
-        $dataInsert = $db -> query("INSERT INTO data_type (name, description, is_expense) VALUE ('" . $name . "', '" . $desc . "', " . $dataType . ");");
-        $error = 'Data Type successfully submitted!';
+        if ($db -> query("INSERT INTO data_type (name, description, is_expense) VALUE ('" . $name . "', '" . $desc . "', " . $dataType . ");") === TRUE) {
+            $dataLink = $db -> query("INSERT INTO user_type (user_id, type_name) VALUE (" . $_SESSION['loginUserId'] . ", '" .  $name . "');");
+            $error = 'Data Type successfully submitted!';
+        }
     }
 
 }

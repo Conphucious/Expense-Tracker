@@ -22,17 +22,19 @@ if (isset($_SESSION['loginUserId'])) {
                         </a>
                     </li><hr>
                     <li>
-                        <a href="./profile.htm" class="menu-li hover-animate">
+                        <a href="./stats.php" class="menu-li hover-animate">
                             <span class="ukie-icons hover-animate"></span>
                             <h2 class="title-header">Statistics View</h2>
                         </a>
                     </li><hr>
-                    <li>
-                        <a href="./profile.htm" class="menu-li hover-animate">
-                            <span class="ukie-icons hover-animate"></span>
-                            <h2 class="title-header">Settings</h2>
-                        </a>
-                    </li><hr>
+                 ' .
+          // <li>
+          //               <a href="./profile.htm" class="menu-li hover-animate">
+          //                   <span class="ukie-icons hover-animate"></span>
+          //                   <h2 class="title-header">Settings</h2>
+          //               </a>
+          //           </li><hr>
+    '
                     <li>
                         <a href="./logout.php" class="menu-li hover-animate">
                             <span class="ukie-icons hover-animate"></span>
